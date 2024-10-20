@@ -4,6 +4,7 @@ import Reconciler from "react-reconciler";
 import type { ReactNode } from "react";
 import domify from "./dom";
 import convert from "./converter";
+import formatQml from "./utils/qml_formatter";
 
 const Renderer = Reconciler({
   createInstance: (type: string, props: Record<string, any>) => {
@@ -44,9 +45,11 @@ const Renderer = Reconciler({
   supportsMutation: true,
 
   appendChildToContainer: (parent: any, child: any) => {
-    parent.children = convert(child)
-      .map((a) => (typeof a == "string" ? a : a.join("\n") + "\n"))
-      .join("\n");
+    parent.children = formatQml(
+      convert(child)
+        .map((a) => (typeof a == "string" ? a : a.join("\n") + "\n"))
+        .join("\n")
+    );
   },
 
   appendChild: (parent: any, child: any) => {

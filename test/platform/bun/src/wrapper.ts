@@ -24,5 +24,5 @@ export default function runQml(qml: string) {
   ntb.set(str, 0);
   ntb[str.length] = 0;
 
-  console.log(engine.symbols.open_window(ntb));
+  engine.symbols.open_window(ntb)
 }

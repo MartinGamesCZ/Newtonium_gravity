@@ -37,6 +37,7 @@ function App() {
     <Window title="Hello World App" width={500} height={500}>
       <Layout type="column">
         <Text style={styles.text1}>{data}</Text>
+        <Text style={styles.text1}>{data}</Text>
         <Button
           onClick={() => fetch("https://jsonplaceholder.typicode.com/todos/1")}
         >
@@ -63,5 +64,3 @@ writeFileSync("test.qml", root.children);
 const worker = new Worker(path.join(import.meta.dirname, "worker.ts"));
 
 worker.postMessage(root.children);
-
-console.log(getIpcKey());

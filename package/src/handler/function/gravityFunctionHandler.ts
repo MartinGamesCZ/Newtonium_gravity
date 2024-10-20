@@ -7,8 +7,6 @@ export let symbols: {
 
 export function gravityFunctionHandler(symbol: string) {
   callSymbol(symbol);
-
-  console.log("calling symbol", symbol);
 }
 
 export function registerSymbol(callback: () => void) {

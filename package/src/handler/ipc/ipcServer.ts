@@ -27,7 +27,5 @@ export default function startIpcServer() {
     res.send(true);
   });
 
-  server.listen(getIpcPort(), () => {
-    console.log("IPC server started");
-  });
+  server.listen(getIpcPort(), () => {});
 }
