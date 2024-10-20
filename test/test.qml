@@ -1,3 +1,4 @@
+import QtWebSockets 1.6
 import QtQuick.Window 2.13
 import QtQuick.Layouts 1.2
 import QtQuick 2.15
@@ -12,19 +13,7 @@ Window {
 	ColumnLayout {
 
 		Text {
-			text: "test"
-			font.hintingPreference: Font.PreferFullHinting
-			color: "#31aa13"
-			font.pointSize: 24
-			font.weight: Font.Light
-			font.family: "Ubuntu"
-			font.strikeout: true
-			padding: 50
-			leftPadding: 10
-		}
-
-		Text {
-			text: "test"
+			text: "Hello"
 			font.hintingPreference: Font.PreferFullHinting
 			color: "#31aa13"
 			font.pointSize: 24
@@ -36,12 +25,27 @@ Window {
 		}
 
 		Button {
-			onClicked: () => gravityFunctionHandler("xftkn")
+			onClicked: () => gravityFunctionHandler("jef1op")
+			id: _f9dffb1dcbad42c1be08a72cc5ff49f4
 			text: "Click me!"
 		}
 	}
 
+	WebSocket {
+		id: ipc
+		url: "ws://localhost:11873"
+
+		onTextMessageReceived: {
+			  gotIpcMessage(message)
+		}
+
+		onStatusChanged: () => {}
+		active: true
+	}
+
 	function gravityFunctionHandler(symbol) { callSymbol(symbol); }
-	function getCreds() { return { port: "46602", key: "7821b1cf487f40188a9e6ef95397a171213219bc0e444445a8f354b68cd178e3" }; }
-	function callSymbol(symbol) { const creds = getCreds(), xhr = new XMLHttpRequest; xhr.open("GET", `http://localhost:${creds.port}/&/${symbol}`, !0); xhr.setRequestHeader("Authorization", creds.key); xhr.send(); }
+	function getCreds() { return { port: "11873", key: "1f82408cb03d4ae6ba5e4bd8687a2344daaede0b03414f15812cebb071eb4300" }; }
+	function callSymbol(symbol) { ipc.sendTextMessage(JSON.stringify({ symbol, _key: getCreds().key })); }
+	function getElementById(id) { return eval(id); }
+	function gotIpcMessage(message) { const data = JSON.parse(message); if (data.type == "eval") eval(data.code); if (data.type == "set_property") getElementById(data.elid)[data.prop] = data.value; }
 }

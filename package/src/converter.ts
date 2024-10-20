@@ -6,7 +6,10 @@ interface Tree {
   children: Tree | Tree[] | string | string[] | null;
 }
 
-export default function convert(tree: Tree, header: string[] = []) {
+export default function convert(
+  tree: Tree,
+  header: string[] = ["import QtWebSockets 1.6"]
+) {
   if (typeof tree === "string") {
     return tree;
   }

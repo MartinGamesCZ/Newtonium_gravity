@@ -8,13 +8,17 @@ import {
 interface ButtonProps {
   children: string;
   onClick: () => void;
+  reference?: Ref<null>;
 }
 
-export default function Button({ children, onClick }: ButtonProps) {
+export default function Button({ children, onClick, reference }: ButtonProps) {
   const symbol = Math.random().toString(36).substring(7);
 
   return (
-    <gravity-button onClicked={registerSymbol(onClick)}>
+    <gravity-button
+      onClicked={registerSymbol(onClick)}
+      id={reference ? "_" + reference._elementIdentifier : undefined}
+    >
       {children}
     </gravity-button>
   );

@@ -7,11 +7,15 @@ export function getCreds() {
 }
 
 export function callSymbol(symbol: string) {
-  const creds = getCreds();
+  // @ts-ignore
+  ipc.sendTextMessage(JSON.stringify({ symbol, _key: getCreds().key }));
+}
 
-  const xhr = new XMLHttpRequest();
+export function gotIpcMessage(message: string) {
+  const data = JSON.parse(message);
 
-  xhr.open("GET", `http://localhost:${creds.port}/&/${symbol}`, true);
-  xhr.setRequestHeader("Authorization", creds.key);
-  xhr.send();
+  if (data.type == "eval") eval(data.code);
+  if (data.type == "set_property")
+    // @ts-ignore
+    getElementById(data.elid)[data.prop] = data.value;
 }

@@ -19,6 +19,7 @@
     "react": "^18.3.1",
     "react-devtools": "^5.3.2",
     "react-dom": "^18.3.1",
-    "react-reconciler": "^0.29.2"
+    "react-reconciler": "^0.29.2",
+    "ws": "^8.18.0"
   }
 }

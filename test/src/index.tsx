@@ -15,6 +15,7 @@ import path from "path";
 import { $ } from "bun";
 import axios from "axios";
 import { getIpcKey } from "../../package/src/handler/ipc/ipcShared";
+import useRef from "../../package/src/hooks/useRef";
 
 const root = { children: "", type: "gravity-root" };
 
@@ -31,15 +32,20 @@ const styles = createStyleSheet({
 });
 
 function App() {
-  const data = "test";
+  let x = 0;
+
+  const buttonRef = useRef(null);
 
   return (
     <Window title="Hello World App" width={500} height={500}>
       <Layout type="column">
-        <Text style={styles.text1}>{data}</Text>
-        <Text style={styles.text1}>{data}</Text>
+        <Text style={styles.text1}>Hello</Text>
         <Button
-          onClick={() => fetch("https://jsonplaceholder.typicode.com/todos/1")}
+          reference={buttonRef}
+          onClick={() => {
+            x++;
+            buttonRef.current.text = `Clicked ${x} times!`;
+          }}
         >
           Click me!
         </Button>
