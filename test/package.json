@@ -11,7 +11,8 @@
   },
   "dependencies": {
     "@types/node": "^22.7.5",
-    "react": "^18.3.1",
-    "platform": "./platform/bun"
+    "axios": "^1.7.7",
+    "platform": "./platform/bun",
+    "react": "^18.3.1"
   }
 }

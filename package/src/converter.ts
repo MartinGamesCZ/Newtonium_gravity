@@ -52,6 +52,11 @@ export default function convert(tree: Tree, header: string[] = []) {
       })
       .join("\n")}
     ${childLines.join("\n")}
+    ${
+      "additionalLines" in conversion
+        ? conversion.additionalLines.join("\n")
+        : ""
+    }
 }`);
 
   return [header, lines.join("\n")];

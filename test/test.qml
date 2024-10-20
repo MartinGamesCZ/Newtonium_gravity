@@ -25,19 +25,18 @@ font.strikeout: true
 padding: 50
 leftPadding: 10
     
+    
 }
 Button {
     
-    text: "Click me!"
-
-    onClicked: {
-      log()
-    }
+    onClicked: () => gravityFunctionHandler("qq6ai3")
+text: "Click me!"
+    
     
 }
+    
 }
-
-function log() {
-    console.log("Hello World")
-}
+    function gravityFunctionHandler(symbol) { callSymbol(symbol); console.log("calling symbol", symbol); }
+function getCreds() { return { port: "17835", key: "eabad6094df84e07b1f6d23467e2e5fbf86cc41610ff4d28a947069379bd875b" }; }
+function callSymbol(symbol) { const creds = getCreds(); console.log("IPC::symbol::" + creds.port + "::" + creds.key + "::" + symbol); const xhr = new XMLHttpRequest; xhr.open("GET", `http://localhost:${creds.port}/&/${symbol}`, !0); xhr.setRequestHeader("Authorization", creds.key); xhr.send(); }
 }
