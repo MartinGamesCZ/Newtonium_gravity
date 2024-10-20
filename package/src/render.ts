@@ -22,6 +22,7 @@ const Renderer = Reconciler({
     return false;
   },
 
+  // @ts-ignore
   prepareForCommit: () => {},
 
   resetAfterCommit: () => {},
@@ -64,6 +65,7 @@ const GravityRenderer = {
       children: string;
     }
   ) => {
+    // @ts-ignore
     const root = Renderer.createContainer(container, false, false);
     await new Promise<void>((r) =>
       Renderer.updateContainer(node, root, null, () => {

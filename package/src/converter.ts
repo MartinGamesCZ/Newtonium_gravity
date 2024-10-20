@@ -39,12 +39,15 @@ export default function convert(tree: Tree, header: string[] = []) {
     ${Object.entries(
       conversion.propsRemap(
         tree.props,
-        tree.children.map((c) => convert(c, [])[1])
+        (tree.children as any[]).map((c) => convert(c, [])[1])
       )
     )
       .filter(([k]) => k != "children")
       .map(([k, v]) => {
         console.log(k, v);
+
+        if (!v) return;
+
         return `${k}: ${v.toString()}`;
       })
       .join("\n")}

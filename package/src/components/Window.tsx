@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 import type { ReactNode } from "react";
 
 interface WindowProps {
