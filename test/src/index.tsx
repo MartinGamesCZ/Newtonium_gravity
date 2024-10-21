@@ -42,8 +42,9 @@ function App() {
         <Text style={styles.text1}>Hello</Text>
         <Button
           reference={buttonRef}
-          onClick={() => {
+          onClick={async () => {
             x++;
+            console.log(await buttonRef.current.text);
             buttonRef.current.text = `Clicked ${x} times!`;
           }}
         >

@@ -25,15 +25,15 @@ Window {
 		}
 
 		Button {
-			onClicked: () => gravityFunctionHandler("jef1op")
-			id: _f9dffb1dcbad42c1be08a72cc5ff49f4
+			onClicked: () => gravityFunctionHandler("6de58i")
+			id: _faa1b73b47f04471aa75b2b1effb94f2
 			text: "Click me!"
 		}
 	}
 
 	WebSocket {
 		id: ipc
-		url: "ws://localhost:11873"
+		url: "ws://localhost:12149"
 
 		onTextMessageReceived: {
 			  gotIpcMessage(message)
@@ -44,8 +44,8 @@ Window {
 	}
 
 	function gravityFunctionHandler(symbol) { callSymbol(symbol); }
-	function getCreds() { return { port: "11873", key: "1f82408cb03d4ae6ba5e4bd8687a2344daaede0b03414f15812cebb071eb4300" }; }
+	function getCreds() { return { port: "12149", key: "172a0d13aec44ee181b07e034c0a2d2bf5b347dc65f34a73949efd677451c0f0" }; }
 	function callSymbol(symbol) { ipc.sendTextMessage(JSON.stringify({ symbol, _key: getCreds().key })); }
 	function getElementById(id) { return eval(id); }
-	function gotIpcMessage(message) { const data = JSON.parse(message); if (data.type == "eval") eval(data.code); if (data.type == "set_property") getElementById(data.elid)[data.prop] = data.value; }
+	function gotIpcMessage(message) { const data = JSON.parse(message); if (data.type == "eval") eval(data.code); if (data.type == "set_property") getElementById(data.elid)[data.prop] = data.value; if (data.type == "get_property") ipc.sendTextMessage(JSON.stringify({ _key: getCreds().key, value: getElementById(data.elid)[data.prop], dkey: data.dkey })); }
 }

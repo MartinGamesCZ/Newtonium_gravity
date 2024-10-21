@@ -1,5 +1,10 @@
 import { randomUUID } from "crypto";
-import { appEval, appSetProperty } from "../handler/ipc/ipcServer";
+import {
+  appEval,
+  appGetProperty,
+  appSetProperty,
+} from "../handler/ipc/ipcServer";
+import { loopWhile } from "deasync";
 
 export interface Ref<T> {
   current: any;
@@ -13,7 +18,7 @@ export default function useRef<T>(initialValue: T): Ref<T> {
       {},
       {
         get: (_, prop) => {
-          throw new Error("Reading properties is not yet supported");
+          return appGetProperty(elid, prop.toString());
         },
         set: (_, prop, value) => {
           appSetProperty(elid, prop.toString(), value);

@@ -6,6 +6,11 @@ import { WebSocket, WebSocketServer } from "ws";
 let ws: WebSocketServer;
 let sockets: WebSocket[] = [];
 
+let listeners: {
+  key: string;
+  func: (data: any) => void;
+}[] = [];
+
 export default function startIpcServer() {
   ws = new WebSocketServer({
     port: getIpcPort(),
@@ -15,13 +20,20 @@ export default function startIpcServer() {
     sockets.push(socket);
 
     socket.on("message", (msg: string) => {
-      const { symbol, _key } = JSON.parse(msg);
+      const data = JSON.parse(msg);
 
-      if (_key !== getIpcKey()) {
+      if (data._key !== getIpcKey()) {
         return;
       }
 
-      const func = symbols[symbol];
+      if (!data.symbol) {
+        listeners
+          .filter((l) => l.key == data.dkey)
+          .forEach((listener) => listener.func(data));
+        return;
+      }
+
+      const func = symbols[data.symbol];
 
       if (!func) {
         return;
@@ -45,4 +57,36 @@ export function appSetProperty(elid: string, prop: string, value: any) {
       JSON.stringify({ type: "set_property", elid: "_" + elid, prop, value })
     );
   }
+}
+
+export function appGetProperty(elid: string, prop: string) {
+  const key = Math.random().toString(36).substring(7);
+
+  let r: any = null;
+
+  listeners.push({
+    key,
+    func: (data) => {
+      if (data.dkey !== key) {
+        return;
+      }
+
+      if (r) r(data.value);
+    },
+  });
+
+  for (const socket of sockets) {
+    socket.send(
+      JSON.stringify({
+        type: "get_property",
+        elid: "_" + elid,
+        prop,
+        dkey: key,
+      })
+    );
+  }
+
+  return new Promise((resolve) => {
+    r = resolve;
+  });
 }

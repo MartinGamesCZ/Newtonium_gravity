@@ -18,4 +18,15 @@ export function gotIpcMessage(message: string) {
   if (data.type == "set_property")
     // @ts-ignore
     getElementById(data.elid)[data.prop] = data.value;
+
+  if (data.type == "get_property")
+    // @ts-ignore
+    ipc.sendTextMessage(
+      JSON.stringify({
+        _key: getCreds().key,
+        // @ts-ignore
+        value: getElementById(data.elid)[data.prop],
+        dkey: data.dkey,
+      })
+    );
 }
