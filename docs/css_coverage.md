@@ -271,17 +271,17 @@
 - [ ] overscroll-behavior-x 	Specifies whether to have scroll chaining or overscroll affordance in x-direction
 - [ ] overscroll-behavior-y 	Specifies whether to have scroll chaining or overscroll affordance in y-directions
 
-- [ ] padding 	A shorthand property for all the padding-* properties
+- [x] padding 	A shorthand property for all the padding-* properties
 - [ ] padding-block 	Specifies the padding in the block direction
 - [ ] padding-block-end 	Specifies the padding at the end in the block direction
 - [ ] padding-block-start 	Specifies the padding at the start in the block direction
-- [ ] padding-bottom 	Sets the bottom padding of an element
+- [x] padding-bottom 	Sets the bottom padding of an element
 - [ ] padding-inline 	Specifies the padding in the inline direction
 - [ ] padding-inline-end 	Specifies the padding at the end in the inline direction
 - [ ] padding-inline-start 	Specifies the padding at the start in the inline direction
-- [ ] padding-left 	Sets the left padding of an element
-- [ ] padding-right 	Sets the right padding of an element
-- [ ] padding-top 	Sets the top padding of an element
+- [x] padding-left 	Sets the left padding of an element
+- [x] padding-right 	Sets the right padding of an element
+- [x] padding-top 	Sets the top padding of an element
 - [ ] page-break-after 	Sets the page-break behavior after an element. Replaced by break-after property
 - [ ] page-break-before 	Sets the page-break behavior before an element. Replaced by break-before property
 - [ ] page-break-inside 	Sets the page-break behavior inside an element. Replaced by break-inside property
