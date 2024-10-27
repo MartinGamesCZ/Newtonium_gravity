@@ -91,3 +91,16 @@ export function appGetProperty(elid: string, prop: string) {
     r = resolve;
   });
 }
+
+export function appCallProperty(elid: string, prop: string, args: any[]) {
+  for (const socket of sockets) {
+    socket.send(
+      JSON.stringify({
+        type: "call_property",
+        elid: "_" + elid,
+        prop,
+        args,
+      })
+    );
+  }
+}

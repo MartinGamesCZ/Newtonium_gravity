@@ -79,16 +79,21 @@ const Renderer = Reconciler({
   commitUpdate: (instance: any, updatePayload: any) => {
     let { type, oldProps, newProps } = updatePayload;
 
-    if (oldProps.children.props || newProps.children.props || oldProps.children[0]?.props || newProps.children[0]?.props) {
+    if (
+      oldProps.children.props ||
+      newProps.children.props ||
+      oldProps.children[0]?.props ||
+      newProps.children[0]?.props
+    ) {
       oldProps = {
         ...oldProps,
-        children: ""
-      }
+        children: "",
+      };
 
       newProps = {
         ...newProps,
-        children: ""
-      }
+        children: "",
+      };
     }
 
     const difference = diff(decircular(oldProps), decircular(newProps));
@@ -105,9 +110,11 @@ const Renderer = Reconciler({
       if (!instance.props.id) continue;
 
       if (reversePropsRemap[key as keyof typeof reversePropsRemap]) {
-        const rp = reversePropsRemap[key as keyof typeof reversePropsRemap] as any;
+        const rp = reversePropsRemap[
+          key as keyof typeof reversePropsRemap
+        ] as any;
         if (typeof rp == "function") {
-          const vals = rp(newProps[key as keyof typeof newProps])
+          const vals = rp(newProps[key as keyof typeof newProps]);
 
           for (const val of Object.keys(vals)) {
             console.log(val, vals);
@@ -115,7 +122,9 @@ const Renderer = Reconciler({
             appSetProperty(
               instance.props.id.replace("__", "_"),
               val,
-              typeof vals[val as keyof typeof vals] == "string" ? vals[val as keyof typeof vals].replaceAll("\"", "") : vals[val as keyof typeof vals]
+              typeof vals[val as keyof typeof vals] == "string"
+                ? vals[val as keyof typeof vals].replaceAll('"', "")
+                : vals[val as keyof typeof vals]
             );
           }
 
@@ -127,13 +136,12 @@ const Renderer = Reconciler({
           rp,
           newProps[key as keyof typeof newProps]
         );
-      }
-
-      else appSetProperty(
-        instance.props.id.replace("__", "_"),
-        key,
-        newProps[key as keyof typeof newProps]
-      );
+      } else
+        appSetProperty(
+          instance.props.id.replace("__", "_"),
+          key,
+          newProps[key as keyof typeof newProps]
+        );
     }
   },
 });

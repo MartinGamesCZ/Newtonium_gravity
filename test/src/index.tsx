@@ -16,15 +16,25 @@ import axios from "axios";
 
 const root = { children: "", type: "gravity-root" };
 
-const colors = ["red", "green", "blue", "yellow", "purple", "orange"];
-
 function App() {
   const [visible, setVisible] = useState(false);
 
+  useEffect(() => {
+    if (!visible) return;
+
+    const timeout = setTimeout(() => {
+      setVisible(false);
+    }, 1000);
+
+    return () => {
+      clearTimeout(timeout);
+    };
+  }, [visible]);
+
   return (
-    <Window title="Hello World App" width={700} height={500} visible={visible}>
-      <Dialog title="Hello World App" visible={visible}>
-        <Text style={{}}>Holla</Text>
+    <Window title="Hello World App" width={700} height={500}>
+      <Dialog title="Test" visible={visible}>
+        <Text style={{}}>Hello</Text>
       </Dialog>
       <Layout type="column">
         <Text style={{}}>Test</Text>

@@ -42,4 +42,8 @@ export function gotIpcMessage(message: string) {
         dkey: data.dkey,
       })
     );
+
+  if (data.type == "call_property")
+    // @ts-ignore
+    callProperty(data.elid, data.prop, data.args);
 }

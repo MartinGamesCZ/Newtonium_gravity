@@ -2,13 +2,15 @@
 
 import { randomUUID } from "crypto";
 import type { ReactNode } from "react";
+import type { ElementStyle } from "../styles/types";
 
 interface WindowProps {
   children: ReactNode | ReactNode[];
-  width?: number;
-  height?: number;
+  width: number;
+  height: number;
   title?: string;
   visible?: boolean;
+  style?: ElementStyle;
 }
 
 export default function Window({
@@ -17,6 +19,7 @@ export default function Window({
   height,
   title,
   visible,
+  style,
 }: WindowProps) {
   return (
     <gravity-window
@@ -25,6 +28,7 @@ export default function Window({
       title={title}
       id={"__g_" + randomUUID().replaceAll("-", "")}
       visible={visible}
+      style={style}
     >
       {children}
     </gravity-window>

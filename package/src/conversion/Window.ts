@@ -1,7 +1,12 @@
-import { getElementById } from "../api/element";
+import {
+  callProperty,
+  existsElementById,
+  getElementById,
+} from "../api/element";
 import { gravityFunctionHandler } from "../handler/function/gravityFunctionHandler";
 import { callSymbol, getCreds, gotIpcMessage } from "../handler/ipc/ipcClient";
 import { getIpcKey, getIpcPort } from "../handler/ipc/ipcShared";
+import { remapStyles } from "../styles/StyleSheet";
 import { stringifyFn } from "../utils/conversions";
 
 export const WindowConversion = {
@@ -13,6 +18,8 @@ export const WindowConversion = {
   propsRemap: (p: Record<string, any>, children: any) => ({
     ...p,
     title: `"${p.title}"`,
+    style: undefined,
+    ...remapStyles(p.style ?? {}),
   }),
   reversePropsRemap: {
     width: "width",
@@ -35,6 +42,8 @@ active: true
       .replaceAll(":key", getIpcKey()),
     stringifyFn(callSymbol),
     stringifyFn(getElementById).replace("Id2", "Id"),
+    stringifyFn(existsElementById),
+    stringifyFn(callProperty).replace("ty2", "ty"),
     stringifyFn(gotIpcMessage),
   ],
 };
