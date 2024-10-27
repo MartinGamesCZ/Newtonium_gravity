@@ -77,9 +77,19 @@ const Renderer = Reconciler({
   commitTextUpdate: (textInstance: any, oldText: string, newText: string) => {},
 
   commitUpdate: (instance: any, updatePayload: any) => {
-    const { type, oldProps, newProps } = updatePayload;
+    let { type, oldProps, newProps } = updatePayload;
 
-    if (oldProps.children.props || newProps.children.props || oldProps.children[0]?.props || newProps.children[0]?.props) return;
+    if (oldProps.children.props || newProps.children.props || oldProps.children[0]?.props || newProps.children[0]?.props) {
+      oldProps = {
+        ...oldProps,
+        children: ""
+      }
+
+      newProps = {
+        ...newProps,
+        children: ""
+      }
+    }
 
     const difference = diff(decircular(oldProps), decircular(newProps));
 
@@ -91,10 +101,11 @@ const Renderer = Reconciler({
 
     for (const key of Object.keys(difference)) {
       if (key == "id") continue;
+      if (key == "onClicked") continue;
       if (!instance.props.id) continue;
 
       if (reversePropsRemap[key as keyof typeof reversePropsRemap]) {
-        const rp = reversePropsRemap[key as keyof typeof reversePropsRemap];
+        const rp = reversePropsRemap[key as keyof typeof reversePropsRemap] as any;
         if (typeof rp == "function") {
           const vals = rp(newProps[key as keyof typeof newProps])
 

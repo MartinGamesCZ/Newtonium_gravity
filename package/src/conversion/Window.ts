@@ -14,6 +14,11 @@ export const WindowConversion = {
     ...p,
     title: `"${p.title}"`,
   }),
+  reversePropsRemap: {
+    width: "width",
+    height: "height",
+    visible: "visible",
+  },
   additionalLines: [
     `WebSocket {
 id: ipc

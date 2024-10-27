@@ -7,4 +7,7 @@ export const ButtonConversion = {
     text: `"${p.children}"`,
     children: undefined,
   }),
+  reversePropsRemap: {
+    children: "text",
+  },
 };

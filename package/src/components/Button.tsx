@@ -1,5 +1,6 @@
 // @ts-nocheck
 
+import { randomUUID } from "crypto";
 import {
   gravityFunctionHandler,
   registerSymbol,
@@ -17,7 +18,11 @@ export default function Button({ children, onClick, reference }: ButtonProps) {
   return (
     <gravity-button
       onClicked={registerSymbol(onClick)}
-      id={reference ? "_" + reference._elementIdentifier : undefined}
+      id={
+        reference
+          ? "_" + reference._elementIdentifier
+          : "__g_" + randomUUID().replaceAll("-", "")
+      }
     >
       {children}
     </gravity-button>

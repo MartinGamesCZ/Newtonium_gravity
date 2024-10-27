@@ -1,5 +1,5 @@
 import { writeFileSync } from "fs";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import path from "path";
 
 import {
@@ -10,6 +10,7 @@ import {
   Button,
   GravityRenderer,
   useRef,
+  Dialog,
 } from "@newtonium/gravity";
 import axios from "axios";
 
@@ -18,24 +19,21 @@ const root = { children: "", type: "gravity-root" };
 const colors = ["red", "green", "blue", "yellow", "purple", "orange"];
 
 function App() {
-  const [size, setSize] = useState(0);
+  const [visible, setVisible] = useState(false);
 
   return (
-    <Window title="Hello World App" width={500} height={500}>
+    <Window title="Hello World App" width={700} height={500} visible={visible}>
+      <Dialog title="Hello World App" visible={visible}>
+        <Text style={{}}>Holla</Text>
+      </Dialog>
       <Layout type="column">
-        <Text
-          style={{
-            fontSize: size,
-          }}
-        >
-          Hello, World!
-        </Text>
+        <Text style={{}}>Test</Text>
         <Button
           onClick={() => {
-            setSize((s) => s + 2);
+            setVisible(true);
           }}
         >
-          Click me!
+          click
         </Button>
       </Layout>
     </Window>
