@@ -1,4 +1,4 @@
-import { runQml } from "../platform/bun/src";
+import { runQml } from "../../test/platform/bun/src";
 
 declare var self: Worker;
 

@@ -52,6 +52,7 @@ export function appEval(code: string) {
 }
 
 export function appSetProperty(elid: string, prop: string, value: any) {
+  console.log("set", elid, prop, value);
   for (const socket of sockets) {
     socket.send(
       JSON.stringify({ type: "set_property", elid: "_" + elid, prop, value })

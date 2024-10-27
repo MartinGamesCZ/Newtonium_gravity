@@ -1,51 +1,38 @@
 import { writeFileSync } from "fs";
+import { useState } from "react";
+import path from "path";
+
 import {
-  Button,
-  Dialog,
-  GravityRenderer,
+  startIpcServer,
+  Window,
   Layout,
   Text,
-  Window,
-} from "../../package/src/index";
-import { runQml } from "../platform/bun/src";
-import createStyleSheet from "../../package/src/styles/StyleSheet";
-import { useState } from "react";
-import startIpcServer from "../../package/src/handler/ipc/ipcServer";
-import path from "path";
-import { $ } from "bun";
+  Button,
+  GravityRenderer,
+  useRef,
+} from "@newtonium/gravity";
 import axios from "axios";
-import { getIpcKey } from "../../package/src/handler/ipc/ipcShared";
-import useRef from "../../package/src/hooks/useRef";
 
 const root = { children: "", type: "gravity-root" };
 
-const styles = createStyleSheet({
-  text1: {
-    color: "#31aa13",
-    fontSize: 24,
-    fontWeight: "light",
-    fontFamily: "Ubuntu",
-    textDecoration: "line-through",
-    padding: 50,
-    paddingLeft: 10,
-  },
-});
+const colors = ["red", "green", "blue", "yellow", "purple", "orange"];
 
 function App() {
-  let x = 0;
-
-  const buttonRef = useRef(null);
+  const [size, setSize] = useState(0);
 
   return (
     <Window title="Hello World App" width={500} height={500}>
       <Layout type="column">
-        <Text style={styles.text1}>Hello</Text>
+        <Text
+          style={{
+            fontSize: size,
+          }}
+        >
+          Hello, World!
+        </Text>
         <Button
-          reference={buttonRef}
-          onClick={async () => {
-            x++;
-            console.log(await buttonRef.current.text);
-            buttonRef.current.text = `Clicked ${x} times!`;
+          onClick={() => {
+            setSize((s) => s + 2);
           }}
         >
           Click me!
@@ -58,7 +45,7 @@ function App() {
 async function fetch(url: string) {
   const { data } = await axios.get(url);
 
-  console.log(data);
+  return data;
 }
 
 await GravityRenderer.render(<App />, root);

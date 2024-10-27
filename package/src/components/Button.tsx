@@ -8,7 +8,7 @@ import {
 interface ButtonProps {
   children: string;
   onClick: () => void;
-  reference?: Ref<null>;
+  reference?: any;
 }
 
 export default function Button({ children, onClick, reference }: ButtonProps) {

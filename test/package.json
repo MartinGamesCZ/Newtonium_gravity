@@ -2,6 +2,9 @@
   "name": "test",
   "module": "src/index.tsx",
   "type": "module",
+  "scripts": {
+    "start": "bun run _install.ts && bun ."
+  },
   "devDependencies": {
     "@types/bun": "latest",
     "@types/react": "^18.3.11"
@@ -10,6 +13,7 @@
     "typescript": "^5.0.0"
   },
   "dependencies": {
+    "@newtonium/gravity": "../package/dist",
     "@types/node": "^22.7.5",
     "axios": "^1.7.7",
     "platform": "./platform/bun",

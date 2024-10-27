@@ -29,7 +29,7 @@ active: true
       .replaceAll(":port", getIpcPort().toString())
       .replaceAll(":key", getIpcKey()),
     stringifyFn(callSymbol),
-    stringifyFn(getElementById),
+    stringifyFn(getElementById).replace("Id2", "Id"),
     stringifyFn(gotIpcMessage),
   ],
 };

@@ -12,4 +12,8 @@ export const TextConversion = {
     "font.hintingPreference": "Font.PreferFullHinting",
     ...remapStyles(p.style),
   }),
+  reversePropsRemap: {
+    children: "text",
+    style: remapStyles,
+  },
 };
