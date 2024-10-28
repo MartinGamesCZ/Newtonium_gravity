@@ -58,3 +58,21 @@ export function cleanImports(qml: string) {
 
   return imports.join("\n") + "\n" + out.join("\n");
 }
+
+export function formatQmlInline(qml: string) {
+  const nfmt = formatQml(qml);
+
+  const lines = nfmt.split("\n");
+
+  const out: string[] = [];
+
+  for (const line of lines) {
+    const trimmed = line.trim();
+
+    out.push(trimmed);
+
+    if (!trimmed.endsWith("{") && !trimmed.endsWith("}")) out.push("; ");
+  }
+
+  return out.join("");
+}

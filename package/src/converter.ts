@@ -20,6 +20,16 @@ export default function convert(
 
   header.push(conversion.imports.map((i) => `import ${i}`).join("\n"));
 
+  lines.push(convertElement(conversion, tree, header));
+
+  return [header, lines.join("\n")];
+}
+
+export function convertElement(
+  conversion: any,
+  tree: any,
+  header: string[] = []
+) {
   const childLines: string[] = [];
 
   ((tree.children as any[]) ?? []).forEach((child) => {
@@ -34,10 +44,10 @@ export default function convert(
     childLines.push(c[1] as string);
   });
 
-  lines.push(`${conversion.name} {
+  return `${conversion.name} {
 ${Object.entries(conversion.defaultProps)
   .filter(([k, v]) => !tree.props[k])
-  .map(([k, v]) => `${k}: ${v.toString()}`)
+  .map(([k, v]: any) => `${k}: ${v.toString()}`)
   .join("\n")}
 ${Object.entries(
   conversion.propsRemap(
@@ -54,7 +64,5 @@ ${Object.entries(
   .join("\n")}
 ${childLines.join("\n")}
 ${"additionalLines" in conversion ? conversion.additionalLines.join("\n") : ""}
-}`);
-
-  return [header, lines.join("\n")];
+}`;
 }

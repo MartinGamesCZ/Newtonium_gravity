@@ -33,10 +33,8 @@ function App() {
 
   return (
     <Window title="Hello World App" width={700} height={500}>
-      <Dialog title="Test" visible={visible}>
-        <Text style={{}}>Hello</Text>
-      </Dialog>
       <Layout type="column">
+        {visible ? <Text style={{}}>Hello</Text> : null}
         <Text style={{}}>Test</Text>
         <Button
           onClick={() => {
@@ -65,4 +63,7 @@ writeFileSync("test.qml", root.children);
 
 const worker = new Worker(path.join(import.meta.dirname, "worker.ts"));
 
-worker.postMessage(root.children);
+worker.postMessage({
+  qml: root.children,
+  icon: path.join(import.meta.dirname, "assets/icon.png"),
+});

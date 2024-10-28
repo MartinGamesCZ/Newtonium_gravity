@@ -3,9 +3,14 @@ import Reconciler from "react-reconciler";
 
 import type { ReactNode } from "react";
 import domify from "./dom";
-import convert from "./converter";
+import convert, { convertElement } from "./converter";
 import formatQml from "./utils/qml_formatter";
-import { appSetProperty } from "./handler/ipc/ipcServer";
+import {
+  appCreateElementAtIndex,
+  appCreateElementBefore,
+  appDestroyElement,
+  appSetProperty,
+} from "./handler/ipc/ipcServer";
 import Conversions from "./conversion";
 import { diff } from "deep-object-diff";
 import decircular from "decircular";
@@ -143,6 +148,27 @@ const Renderer = Reconciler({
           newProps[key as keyof typeof newProps]
         );
     }
+  },
+
+  insertBefore: (parent: any, child: any, beforeChild: any) => {
+    const element = convert(child, []);
+
+    appCreateElementBefore(
+      (element[0] as string[]).join("\n") + "\n" + element[1],
+      parent.props.id.replace("__", "_"),
+      beforeChild.props.id.replace("__", "_")
+    );
+  },
+
+  detachDeletedInstance: (node: any) => {
+    // noop
+  },
+
+  removeChild: (parent: any, child: any) => {
+    appDestroyElement(
+      child.props.id.replace("__", "_"),
+      parent.props.id.replace("__", "_")
+    );
   },
 });
 

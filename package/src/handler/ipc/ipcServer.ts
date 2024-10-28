@@ -2,6 +2,7 @@ import express from "express";
 import { getIpcKey, getIpcPort } from "./ipcShared";
 import { symbols } from "../function/gravityFunctionHandler";
 import { WebSocket, WebSocketServer } from "ws";
+import { formatQmlInline } from "../../utils/qml_formatter";
 
 let ws: WebSocketServer;
 let sockets: WebSocket[] = [];
@@ -100,6 +101,52 @@ export function appCallProperty(elid: string, prop: string, args: any[]) {
         elid: "_" + elid,
         prop,
         args,
+      })
+    );
+  }
+}
+
+export function appCreateElementAtIndex(
+  str: string,
+  parentId: string,
+  index: number
+) {
+  for (const socket of sockets) {
+    socket.send(
+      JSON.stringify({
+        type: "create_element",
+        str,
+        parentId: "_" + parentId,
+        index,
+      })
+    );
+  }
+}
+
+export function appCreateElementBefore(
+  str: string,
+  parentId: string,
+  beforeId: string
+) {
+  for (const socket of sockets) {
+    socket.send(
+      JSON.stringify({
+        type: "insert_before",
+        str,
+        parentId: "_" + parentId,
+        beforeId: "_" + beforeId,
+      })
+    );
+  }
+}
+
+export function appDestroyElement(elid: string, ptid: string) {
+  for (const socket of sockets) {
+    socket.send(
+      JSON.stringify({
+        type: "destroy_element",
+        elid: "_" + elid,
+        ptid: "_" + ptid,
       })
     );
   }

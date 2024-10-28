@@ -1,4 +1,5 @@
 import { remapStyles } from "../styles/StyleSheet";
+import { enquote } from "../utils/conversions";
 
 export const TextConversion = {
   imports: ["QtQuick 2.15"],
@@ -8,6 +9,7 @@ export const TextConversion = {
     ...p,
     children: undefined,
     style: undefined,
+    objectName: enquote(p.id),
     text: `"${p.children}"`,
     "font.hintingPreference": "Font.PreferFullHinting",
     ...remapStyles(p.style),

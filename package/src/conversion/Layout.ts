@@ -1,9 +1,12 @@
+import { enquote } from "../utils/conversions";
+
 export const ColumnLayoutConversion = {
   imports: ["QtQuick.Layouts 1.2"],
   name: "ColumnLayout",
   defaultProps: {},
   propsRemap: (p: Record<string, any>, children: any) => ({
     ...p,
+    objectName: enquote(p.id),
   }),
 };
 
@@ -13,6 +16,7 @@ export const RowLayoutConversion = {
   defaultProps: {},
   propsRemap: (p: Record<string, any>, children: any) => ({
     ...p,
+    objectName: enquote(p.id),
   }),
 };
 
@@ -22,5 +26,6 @@ export const GridLayoutConversion = {
   defaultProps: {},
   propsRemap: (p: Record<string, any>, children: any) => ({
     ...p,
+    objectName: enquote(p.id),
   }),
 };

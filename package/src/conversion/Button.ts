@@ -1,3 +1,5 @@
+import { enquote } from "../utils/conversions";
+
 export const ButtonConversion = {
   imports: ["QtQuick.Controls 1.2"],
   name: "Button",
@@ -6,6 +8,7 @@ export const ButtonConversion = {
     ...p,
     text: `"${p.children}"`,
     children: undefined,
+    objectName: enquote(p.id),
   }),
   reversePropsRemap: {
     children: "text",

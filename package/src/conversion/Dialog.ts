@@ -1,4 +1,5 @@
 import { reverse } from "dns";
+import { enquote } from "../utils/conversions";
 
 export const DialogConversion = {
   imports: ["QtQuick 2.3", "QtQuick.Dialogs 1.2"],
@@ -10,6 +11,7 @@ export const DialogConversion = {
     return {
       ...p,
       title: `"${p.title}"`,
+      objectName: enquote(p.id),
     };
   },
   reversePropsRemap: {

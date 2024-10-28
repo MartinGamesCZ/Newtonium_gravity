@@ -46,4 +46,21 @@ export function gotIpcMessage(message: string) {
   if (data.type == "call_property")
     // @ts-ignore
     callProperty(data.elid, data.prop, data.args);
+
+  if (data.type == "create_element")
+    // @ts-ignore
+    createElementAtIndex(data.str, data.parentId, data.index);
+
+  if (data.type == "insert_before")
+    // @ts-ignore
+    createElementAtIndex(
+      data.str,
+      data.parentId,
+      // @ts-ignore
+      getIndexById(data.beforeId, data.parentId)
+    );
+
+  if (data.type == "destroy_element")
+    // @ts-ignore
+    destroyElementFromParent(data.elid, data.ptid);
 }
