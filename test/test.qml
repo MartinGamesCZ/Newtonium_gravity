@@ -1,39 +1,39 @@
 import QtWebSockets 1.6
 import QtQuick.Window 2.13
 import QtQuick.Layouts 1.2
-import QtQuick 2.15
-import QtQuick.Controls 1.2
+import QtQuick.Controls 1.4
 
 Window {
 	visible: true
 	width: 700
 	height: 500
 	title: "Hello World App"
-	id: __g_ed023a136cf84c7c85094d985e05a76f
-	objectName: "__g_ed023a136cf84c7c85094d985e05a76f"
+	id: __g_e7a628e850c048bbbd357f73aa315d48
+	objectName: "__g_e7a628e850c048bbbd357f73aa315d48"
 
 	ColumnLayout {
-		id: __g_69564b58_7573_49aa_8154_e353f763b54c
-		objectName: "__g_69564b58_7573_49aa_8154_e353f763b54c"
+		id: __g_3b1e42b8_cd35_41c4_869a_7d68cc21beda
+		objectName: "__g_3b1e42b8_cd35_41c4_869a_7d68cc21beda"
 
-		Text {
-			id: __g_dc7a4bc6c5194e519a261eebd9cca86e
-			objectName: "__g_dc7a4bc6c5194e519a261eebd9cca86e"
-			text: "Test"
-			font.hintingPreference: Font.PreferFullHinting
+		TextField {
+			id: __g_057cd7c78ef9468dadde2d07237ef39c
+			text: ""
+			onTextChanged: () => gravityFunctionHandler("8n9zye")
+			placeholderText: Text
+			objectName: "__g_057cd7c78ef9468dadde2d07237ef39c"
 		}
 
 		Button {
-			onClicked: () => gravityFunctionHandler("lffhi")
-			id: __g_a7d545628b1f4521b489d251cb2d26f6
-			text: "click"
-			objectName: "__g_a7d545628b1f4521b489d251cb2d26f6"
+			onClicked: () => gravityFunctionHandler("i2me3h")
+			id: __g_438786d727524ac6b908dc7e7d4b98d3
+			text: "Reverse"
+			objectName: "__g_438786d727524ac6b908dc7e7d4b98d3"
 		}
 	}
 
 	WebSocket {
 		id: ipc
-		url: "ws://localhost:42466"
+		url: "ws://localhost:34750"
 
 		onTextMessageReceived: {
 			  gotIpcMessage(message)
@@ -44,7 +44,7 @@ Window {
 	}
 
 	function gravityFunctionHandler(symbol) { callSymbol(symbol); }
-	function getCreds() { return { port: "42466", key: "20f0176ac20b4c059c0dcc62e7ab23b7d69cd11b3da84195be7f093bdbf1c56e" }; }
+	function getCreds() { return { port: "34750", key: "da40f229086f4be2a7535d4e911d56e2d89a7ce789f2440ba6a0365114b7aa4e" }; }
 	function callSymbol(symbol) { ipc.sendTextMessage(JSON.stringify({ symbol, _key: getCreds().key })); }
 	function getElementById(id) { return existsElementById(id) ? eval(id) : eval("null"); }
 	function existsElementById(id) { return eval("typeof " + id + " !== 'undefined'"); }

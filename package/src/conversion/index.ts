@@ -7,6 +7,7 @@ import {
   GridLayoutConversion,
   RowLayoutConversion,
 } from "./Layout";
+import { InputConversion } from "./Input";
 
 export { WindowConversion } from "./Window";
 export { TextConversion } from "./Text";
@@ -19,6 +20,7 @@ const Conversions = {
   "gravity-layout-column": ColumnLayoutConversion,
   "gravity-layout-row": RowLayoutConversion,
   "gravity-layout-grid": GridLayoutConversion,
+  "gravity-input": InputConversion,
 };
 
 export default Conversions;

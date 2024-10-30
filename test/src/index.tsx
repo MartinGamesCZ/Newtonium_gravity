@@ -11,37 +11,20 @@ import {
   GravityRenderer,
   useRef,
   Dialog,
+  Input,
 } from "@newtonium/gravity";
 import axios from "axios";
 
 const root = { children: "", type: "gravity-root" };
 
 function App() {
-  const [visible, setVisible] = useState(false);
-
-  useEffect(() => {
-    if (!visible) return;
-
-    const timeout = setTimeout(() => {
-      setVisible(false);
-    }, 1000);
-
-    return () => {
-      clearTimeout(timeout);
-    };
-  }, [visible]);
-
+  const [text, setText] = useState("");
   return (
     <Window title="Hello World App" width={700} height={500}>
       <Layout type="column">
-        {visible ? <Text style={{}}>Hello</Text> : null}
-        <Text style={{}}>Test</Text>
-        <Button
-          onClick={() => {
-            setVisible(true);
-          }}
-        >
-          click
+        <Input value={text} onChange={(e) => setText(e)} placeholder="Text" />
+        <Button onClick={() => setText((t) => t.split("").reverse().join(""))}>
+          Reverse
         </Button>
       </Layout>
     </Window>

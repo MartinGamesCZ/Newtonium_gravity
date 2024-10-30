@@ -3,8 +3,10 @@
   "type": "module",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
+  "version": "0.0.0",
   "scripts": {
-    "compile": "bun build --external react --external react-reconciler --external ws --outdir dist src/index.ts && tsc"
+    "compile": "bun build --external react --external react-reconciler --external ws --outdir dist src/index.ts && tsc",
+    "prepack": "bun compile"
   },
   "devDependencies": {
     "@types/bun": "latest",

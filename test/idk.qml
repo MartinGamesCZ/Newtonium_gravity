@@ -1,7 +1,7 @@
 import QtQuick 2.3
 import QtQuick.Window 2.13
 import QtQuick.Dialogs 1.2
-import QtQuick.Controls 1.2
+import QtQuick.Controls 1.4
 import QtQuick.Layouts 1.2
 
 Window {
@@ -28,6 +28,15 @@ Window {
       text: "Test"
       objectName: "test"
       font.hintingPreference: Font.PreferFullHinting
+    }
+
+    TextField {
+      id: txt
+      placeholderText: "Enter text"
+
+      onTextChanged: {
+        console.log(txt.text)
+      }
     }
 
     Button {

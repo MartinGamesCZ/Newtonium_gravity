@@ -1,16 +1,16 @@
 import { enquote } from "../utils/conversions";
 
-export const ButtonConversion = {
+export const InputConversion = {
   imports: ["QtQuick.Controls 1.4"],
-  name: "Button",
+  name: "TextField",
   defaultProps: {},
   propsRemap: (p: Record<string, any>, children: any) => ({
     ...p,
-    text: `"${p.children}"`,
+    text: `"${p.text}"`,
     children: undefined,
     objectName: enquote(p.id),
   }),
   reversePropsRemap: {
-    children: "text",
+    text: "text",
   },
 };
