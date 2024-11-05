@@ -7,21 +7,9 @@ import { enquote } from "../utils/conversions";
 
 interface TextProps {
   children: string;
-  style: ElementStyle;
-  reference?: Ref<null>;
+  style?: ElementStyle;
 }
 
-export default function Text({ children, style, reference }: TextProps) {
-  return (
-    <gravity-text
-      id={
-        reference
-          ? "_" + reference._elementIdentifier
-          : "__g_" + randomUUID().replaceAll("-", "")
-      }
-      style={style}
-    >
-      {children}
-    </gravity-text>
-  );
+export default function Text({ children, style }: TextProps) {
+  return <text style={style}>{children}</text>;
 }

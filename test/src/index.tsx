@@ -3,50 +3,45 @@ import { useEffect, useState } from "react";
 import path from "path";
 
 import {
-  startIpcServer,
-  Window,
   Layout,
   Text,
   Button,
   GravityRenderer,
-  useRef,
   Dialog,
   Input,
+  createStyleSheet,
 } from "@newtonium/gravity";
 import axios from "axios";
+import { randomUUID } from "crypto";
+import { Window } from "@newtonium/core";
 
-const root = { children: "", type: "gravity-root" };
+const window_id = randomUUID();
+
+const window = new Window(
+  "My App",
+  path.join(import.meta.dirname, "assets/icon.png")
+);
+const root = { children: "", type: "gravity-root", window: window };
+const { document } = window;
+
+const styles = createStyleSheet({
+  btn: {
+    border: "1px solid #ff00ff",
+  },
+});
 
 function App() {
-  const [text, setText] = useState("");
+  const [count, setCount] = useState(0);
+
   return (
-    <Window title="Hello World App" width={700} height={500}>
-      <Layout type="column">
-        <Input value={text} onChange={(e) => setText(e)} placeholder="Text" />
-        <Button onClick={() => setText((t) => t.split("").reverse().join(""))}>
-          Reverse
-        </Button>
-      </Layout>
-    </Window>
+    <Button onClick={() => setCount((c) => c + 1)} style={styles.btn}>
+      Clicked {count.toString()} times.
+    </Button>
   );
 }
 
-async function fetch(url: string) {
-  const { data } = await axios.get(url);
-
-  return data;
-}
-
-await GravityRenderer.render(<App />, root);
-
-await startIpcServer();
-
-// Debug
-writeFileSync("test.qml", root.children);
-
-const worker = new Worker(path.join(import.meta.dirname, "worker.ts"));
-
-worker.postMessage({
-  qml: root.children,
-  icon: path.join(import.meta.dirname, "assets/icon.png"),
+window.on("ready", () => {
+  GravityRenderer.render(<App />, root, window);
 });
+
+window.run();

@@ -21,22 +21,16 @@ export const FontWeightMappings = {
 
 export const StyleMappings = {
   color: "color",
-  fontSize: "font.pointSize",
+  fontSize: "font-size",
   fontWeight: (value: keyof typeof FontWeightMappings) => {
     return {
-      "font.weight": FontWeightMappings[value],
+      "font-weight": FontWeightMappings[value],
     };
   },
-  fontFamily: "font.family",
-  textDecoration: (value: "underline" | "line-through" | "none") => {
-    return {
-      "font.underline": value === "underline",
-      "font.strikeout": value === "line-through",
-    };
-  },
+  fontFamily: "font-family",
   padding: "padding",
-  paddingTop: "topPadding",
-  paddingRight: "rightPadding",
-  paddingBottom: "bottomPadding",
-  paddingLeft: "leftPadding",
+  paddingTop: "padding-top",
+  paddingRight: "padding-right",
+  paddingBottom: "padding-bottom",
+  paddingLeft: "padding-left",
 };

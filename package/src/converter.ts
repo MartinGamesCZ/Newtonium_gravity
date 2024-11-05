@@ -6,7 +6,7 @@ interface Tree {
   children: Tree | Tree[] | string | string[] | null;
 }
 
-export default function convert(
+/*export default function convert(
   tree: Tree,
   header: string[] = ["import QtWebSockets 1.6"]
 ) {
@@ -23,9 +23,9 @@ export default function convert(
   lines.push(convertElement(conversion, tree, header));
 
   return [header, lines.join("\n")];
-}
+}*/
 
-export function convertElement(
+/*export function convertElement(
   conversion: any,
   tree: any,
   header: string[] = []
@@ -65,4 +65,4 @@ ${Object.entries(
 ${childLines.join("\n")}
 ${"additionalLines" in conversion ? conversion.additionalLines.join("\n") : ""}
 }`;
-}
+}*/

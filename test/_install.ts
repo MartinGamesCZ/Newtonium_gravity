@@ -1,6 +1,6 @@
 import { cpSync, mkdirSync, rmSync } from "fs";
 
-rmSync("node_modules/@newtonium", { recursive: true, force: true });
+rmSync("node_modules/@newtonium/gravity", { recursive: true, force: true });
 
 mkdirSync("node_modules/@newtonium/gravity", { recursive: true });
 

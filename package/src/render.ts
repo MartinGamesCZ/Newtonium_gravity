@@ -3,22 +3,24 @@ import Reconciler from "react-reconciler";
 
 import type { ReactNode } from "react";
 import domify from "./dom";
-import convert, { convertElement } from "./converter";
-import formatQml from "./utils/qml_formatter";
-import {
-  appCreateElementAtIndex,
-  appCreateElementBefore,
-  appDestroyElement,
-  appSetProperty,
-} from "./handler/ipc/ipcServer";
 import Conversions from "./conversion";
 import { diff } from "deep-object-diff";
 import decircular from "decircular";
 import { enquote } from "./utils/conversions";
+import type { Window } from "@newtonium/core";
+import { remapStyles } from "./styles/StyleSheet";
 
 const Renderer = Reconciler({
-  createInstance: (type: string, props: Record<string, any>) => {
-    return { type, props };
+  createInstance: (type: string, props: Record<string, any>, root: any) => {
+    const conversion = Conversions[type as keyof typeof Conversions];
+
+    const { props: initial_props, post: attach } = conversion(props);
+
+    const element = root.window.document.createElement(type, initial_props);
+
+    attach(element);
+
+    return element;
   },
 
   createTextInstance: (text: string) => {
@@ -55,11 +57,7 @@ const Renderer = Reconciler({
   supportsMutation: true,
 
   appendChildToContainer: (parent: any, child: any) => {
-    parent.children = formatQml(
-      convert(child)
-        .map((a) => (typeof a == "string" ? a : a.join("\n") + "\n"))
-        .join("\n")
-    );
+    parent.window.document.body.appendChild(child);
   },
 
   appendChild: (parent: any, child: any) => {
@@ -79,10 +77,26 @@ const Renderer = Reconciler({
     return { type, oldProps, newProps };
   },
 
-  commitTextUpdate: (textInstance: any, oldText: string, newText: string) => {},
+  commitTextUpdate: (textInstance: any, oldText: string, newText: string) => {
+    // noop
+  },
 
   commitUpdate: (instance: any, updatePayload: any) => {
-    let { type, oldProps, newProps } = updatePayload;
+    const conversion =
+      Conversions[instance.tagName as keyof typeof Conversions];
+
+    const { props: initial_props, post: attach } = conversion(
+      updatePayload.newProps
+    );
+
+    for (const prop of Object.keys(initial_props)) {
+      instance.setAttribute(prop, initial_props[prop]);
+    }
+
+    attach(instance);
+
+    return;
+    /*let { type, oldProps, newProps } = updatePayload;
 
     if (
       oldProps.children.props ||
@@ -147,17 +161,16 @@ const Renderer = Reconciler({
           key,
           newProps[key as keyof typeof newProps]
         );
-    }
+    }*/
   },
 
   insertBefore: (parent: any, child: any, beforeChild: any) => {
-    const element = convert(child, []);
-
-    appCreateElementBefore(
+    //const element = convert(child, []);
+    /*appCreateElementBefore(
       (element[0] as string[]).join("\n") + "\n" + element[1],
       parent.props.id.replace("__", "_"),
       beforeChild.props.id.replace("__", "_")
-    );
+    );*/
   },
 
   detachDeletedInstance: (node: any) => {
@@ -165,10 +178,10 @@ const Renderer = Reconciler({
   },
 
   removeChild: (parent: any, child: any) => {
-    appDestroyElement(
+    /*appDestroyElement(
       child.props.id.replace("__", "_"),
       parent.props.id.replace("__", "_")
-    );
+    );*/
   },
 });
 
@@ -177,8 +190,12 @@ const GravityRenderer = {
     node: ReactNode,
     container: {
       children: string;
-    }
+      window: Window;
+    },
+    window: Window
   ) => {
+    container.window = window;
+
     // @ts-ignore
     const root = Renderer.createContainer(container, false, false);
     await new Promise<void>((r) =>

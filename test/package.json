@@ -3,7 +3,7 @@
   "module": "src/index.tsx",
   "type": "module",
   "scripts": {
-    "start": "bun run _install.ts && bun ."
+    "start": "bun run _install.ts && bun run ./node_modules/@newtonium/core/src/entrypoint.ts src/index.tsx"
   },
   "devDependencies": {
     "@types/bun": "latest",
@@ -13,10 +13,10 @@
     "typescript": "^5.0.0"
   },
   "dependencies": {
+    "@newtonium/core": "0.3.5",
     "@newtonium/gravity": "../package/dist",
     "@types/node": "^22.7.5",
     "axios": "^1.7.7",
-    "platform": "./platform/bun",
     "react": "^18.3.1"
   }
 }

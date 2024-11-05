@@ -11,23 +11,28 @@ export function remapStyles(styles: ElementStyle) {
     [key: string]: any;
   } = {};
 
-  for (const key of Object.keys(styles)) {
-    const v = styles[key as keyof ElementStyle];
+  for (const key of Object.keys(styles ?? {})) {
+    const k = key as keyof ElementStyle;
+    const v = styles[k];
 
-    if (!v) continue;
-
-    const k = StyleMappings[key as keyof typeof StyleMappings] as any;
-
-    if (typeof k == "function") {
-      out = {
-        ...out,
-        ...k(v as any),
-      };
+    if (!StyleMappings[k]) {
+      out[key] = v;
 
       continue;
     }
 
-    out[k] = typeof v == "string" ? enquote(v) : v;
+    const mapped = StyleMappings[k];
+
+    if (typeof mapped == "string") {
+      out[mapped] = v;
+
+      continue;
+    }
+
+    out = {
+      ...out,
+      ...mapped(v as any),
+    };
   }
 
   return out;

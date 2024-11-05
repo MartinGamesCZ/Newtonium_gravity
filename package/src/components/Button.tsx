@@ -1,30 +1,18 @@
 // @ts-nocheck
 
 import { randomUUID } from "crypto";
-import {
-  gravityFunctionHandler,
-  registerSymbol,
-} from "../handler/function/gravityFunctionHandler";
+import type { StyleSheet } from "../styles/types";
 
 interface ButtonProps {
   children: string;
   onClick: () => void;
-  reference?: any;
+  style?: StyleSheet;
 }
 
-export default function Button({ children, onClick, reference }: ButtonProps) {
-  const symbol = Math.random().toString(36).substring(7);
-
+export default function Button({ children, onClick, style }: ButtonProps) {
   return (
-    <gravity-button
-      onClicked={registerSymbol(onClick)}
-      id={
-        reference
-          ? "_" + reference._elementIdentifier
-          : "__g_" + randomUUID().replaceAll("-", "")
-      }
-    >
+    <button style={style} onClick={onClick}>
       {children}
-    </gravity-button>
+    </button>
   );
 }

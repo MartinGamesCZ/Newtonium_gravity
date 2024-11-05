@@ -9,7 +9,6 @@ export interface ElementStyle {
   fontSize?: number;
   fontWeight?: keyof typeof FontWeightMappings;
   fontFamily?: string;
-  textDecoration?: "underline" | "line-through" | "none";
   padding?: number;
   paddingTop?: number;
   paddingRight?: number;
