@@ -1,12 +1,12 @@
 // @ts-nocheck
 
 import { randomUUID } from "crypto";
-import type { StyleSheet } from "../styles/types";
+import type { ElementStyle, StyleSheet } from "../styles/types";
 
 interface ButtonProps {
-  children: string;
+  children: any | any[];
   onClick: () => void;
-  style?: StyleSheet;
+  style?: ElementStyle;
 }
 
 export default function Button({ children, onClick, style }: ButtonProps) {

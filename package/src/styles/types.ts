@@ -6,6 +6,7 @@ export interface StyleSheet {
 
 export interface ElementStyle {
   color?: string;
+  background?: string;
   fontSize?: number;
   fontWeight?: keyof typeof FontWeightMappings;
   fontFamily?: string;

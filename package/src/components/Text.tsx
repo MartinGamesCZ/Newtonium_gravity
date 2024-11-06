@@ -6,7 +6,7 @@ import type { ElementStyle, StyleSheet } from "../styles/types";
 import { enquote } from "../utils/conversions";
 
 interface TextProps {
-  children: string;
+  children: any | any[];
   style?: ElementStyle;
 }
 

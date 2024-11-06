@@ -21,6 +21,7 @@ export const FontWeightMappings = {
 
 export const StyleMappings = {
   color: "color",
+  background: "background",
   fontSize: "font-size",
   fontWeight: (value: keyof typeof FontWeightMappings) => {
     return {
