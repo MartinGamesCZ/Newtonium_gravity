@@ -94,7 +94,8 @@ const Renderer = Reconciler({
 
   commitUpdate: (instance: any, updatePayload: any) => {
     const conversion =
-      Conversions[instance.tagName as keyof typeof Conversions];
+      Conversions[instance.tagName as keyof typeof Conversions] ??
+      Conversions[("gravity-" + instance.tagName) as keyof typeof Conversions];
 
     const { props: initial_props, post: attach } = conversion(
       updatePayload.newProps

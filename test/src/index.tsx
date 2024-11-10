@@ -25,20 +25,41 @@ const window = new Window(
 const root = createRoot(window);
 const { document } = window;
 
+// Controlled:
+
 function App() {
-  const inputRef = useRef<Element | null>(null);
+  const [v, setV] = useState("");
 
   const onSubmit = useCallback(() => {
-    console.log(inputRef.current?.getAttribute("innerHTML"));
-  }, [inputRef]);
+    console.log(v);
+  }, [v]);
 
   return (
     <View dir="horizontal">
-      <Input ref={inputRef} value={""} onChange={() => {}} />
+      <Input value={v} onChange={setV} />
       <Button onClick={onSubmit}>Submit</Button>
     </View>
   );
 }
+
+/*
+Uncontrolled:
+
+function App() {
+  const ref = useRef<Element | null>(null);
+
+  const onSubmit = useCallback(() => {
+    console.log(ref.current?.getAttribute("innerHTML"));
+  }, [ref.current]);
+
+  return (
+    <View dir="horizontal">
+      <Input ref={ref} />
+      <Button onClick={onSubmit}>Submit</Button>
+    </View>
+  );
+}
+*/
 
 window.on("ready", () => {
   GravityRenderer.render(<App />, root, window);

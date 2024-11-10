@@ -10,6 +10,8 @@ const map = Object.entries({
 export const InputConversion = (props: any) => {
   const mod_props = { ...props };
 
+  if (!mod_props.children) mod_props.children = "";
+
   if (typeof mod_props.children != "string")
     mod_props.children = mod_props.children.join("");
 
