@@ -2,6 +2,7 @@
 
 import { randomUUID } from "crypto";
 import type { ElementStyle, StyleSheet } from "../styles/types";
+import { forwardRef, type Ref } from "react";
 
 interface ButtonProps {
   children: any | any[];
@@ -9,10 +10,14 @@ interface ButtonProps {
   style?: ElementStyle;
 }
 
-export default function Button({ children, onClick, style }: ButtonProps) {
+function _Button({ children, onClick, style }: ButtonProps, ref: Ref) {
   return (
-    <button style={style} onClick={onClick}>
+    <button style={style} onClick={onClick} ref={ref}>
       {children}
     </button>
   );
 }
+
+const Button = forwardRef(_Button);
+
+export default Button;

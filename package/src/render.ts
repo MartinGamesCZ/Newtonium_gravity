@@ -72,7 +72,6 @@ const Renderer = Reconciler({
   },
 
   appendChild: (parent: any, child: any) => {
-    console.log(parent, child);
     domify(parent, child);
   },
 
@@ -186,9 +185,7 @@ const Renderer = Reconciler({
     parent.insertBefore(child, beforeChild);
   },
 
-  insertInContainerBefore(container, child, beforeChild) {
-    console.log(container, child, beforeChild);
-  },
+  insertInContainerBefore(container, child, beforeChild) {},
 
   detachDeletedInstance: (node: any) => {
     // noop
