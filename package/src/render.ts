@@ -16,7 +16,14 @@ const Renderer = Reconciler({
 
     const { props: initial_props, post: attach } = conversion(props);
 
-    const element = root.window.document.createElement(type, initial_props);
+    const element = root.window.document.createElement(
+      type.replace("gravity-", ""),
+      Object.fromEntries(
+        Object.entries(initial_props).filter(
+          ([k, v]) => !(k == "children" && typeof v != "string")
+        )
+      )
+    );
 
     attach(element);
 
@@ -28,6 +35,10 @@ const Renderer = Reconciler({
   },
 
   appendInitialChild: (parent: any, child: any) => {
+    if (typeof child == "string") return;
+
+    parent.appendChild(child);
+
     domify(parent, child);
   },
 
@@ -61,6 +72,7 @@ const Renderer = Reconciler({
   },
 
   appendChild: (parent: any, child: any) => {
+    console.log(parent, child);
     domify(parent, child);
   },
 
@@ -171,6 +183,11 @@ const Renderer = Reconciler({
       parent.props.id.replace("__", "_"),
       beforeChild.props.id.replace("__", "_")
     );*/
+    parent.insertBefore(child, beforeChild);
+  },
+
+  insertInContainerBefore(container, child, beforeChild) {
+    console.log(container, child, beforeChild);
   },
 
   detachDeletedInstance: (node: any) => {
@@ -182,6 +199,12 @@ const Renderer = Reconciler({
       child.props.id.replace("__", "_"),
       parent.props.id.replace("__", "_")
     );*/
+
+    child.remove();
+  },
+
+  getPublicInstance: (instance: any) => {
+    return instance;
   },
 });
 

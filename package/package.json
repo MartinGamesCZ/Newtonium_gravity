@@ -20,7 +20,7 @@
     "typescript": "^5.0.0"
   },
   "dependencies": {
-    "@newtonium/core": "0.3.7",
+    "@newtonium/core": "0.3.8",
     "@types/react-reconciler": "^0.28.8",
     "deasync": "^0.1.30",
     "decircular": "^1.0.0",

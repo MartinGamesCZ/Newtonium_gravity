@@ -1,3 +1,5 @@
+import type { Window } from "@newtonium/core";
+
 interface DOMElement {
   type: string;
   props: Record<string, any>;
@@ -26,4 +28,8 @@ export default function domify(parent: DOMElement, child: DOMElement) {
   parent.children = parent.children ?? [];
 
   parent.children.push(child);
+}
+
+export function createRoot(window: Window) {
+  return { children: "", type: "gravity-root", window: window };
 }
