@@ -7,13 +7,16 @@ import { forwardRef, type Ref } from "react";
 
 interface ViewProps {
   children: any | any[];
-  dir: "vertical" | "horizontal";
   style?: ElementStyle;
 }
 
-function _View({ children, style, dir }: ViewProps, ref: Ref) {
+function _View({ children, style }: ViewProps, ref: Ref) {
   return (
-    <view style={style} dir={dir} ref={ref}>
+    <view
+      style={style}
+      dir={style?.flexDirection == "row" ? "horizontal" : "vertical"}
+      ref={ref}
+    >
       {children}
     </view>
   );

@@ -13,17 +13,29 @@ export function remapStyles(styles: ElementStyle) {
 
   for (const key of Object.keys(styles ?? {})) {
     const k = key as keyof ElementStyle;
-    const v = styles[k];
+    let v = styles[k];
+
+    if (StyleMappings[k] && StyleMappings[k] === "!") {
+      continue;
+    }
 
     if (!StyleMappings[k]) {
+      if (typeof v != "string") {
+        v = String(v);
+      }
+
       out[key] = v;
 
       continue;
     }
 
-    const mapped = StyleMappings[k];
+    const mapped: any = StyleMappings[k];
 
     if (typeof mapped == "string") {
+      if (typeof v != "string") {
+        v = String(v);
+      }
+
       out[mapped] = v;
 
       continue;

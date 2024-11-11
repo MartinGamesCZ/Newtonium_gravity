@@ -23,9 +23,61 @@ const window = new Window(
   path.join(import.meta.dirname, "assets/icon.png")
 );
 const root = createRoot(window);
-const { document } = window;
 
-// Controlled:
+function App() {
+  const input_ref = useRef<Element | null>(null);
+  const [v, setV] = useState("");
+
+  const onSubmit = useCallback(() => {
+    if (!input_ref.current) return;
+
+    setV(input_ref.current.getAttribute("innerHTML") ?? "");
+
+    input_ref.current.setAttribute("innerHTML", "");
+  }, [input_ref]);
+
+  return (
+    <View
+      style={{
+        flexDirection: "column",
+      }}
+    >
+      <Text
+        style={{
+          color: v.length > 0 ? "green" : "red",
+          transition: "color 0.5s",
+        }}
+      >
+        Your name:
+      </Text>
+      <View
+        style={{
+          flexDirection: "row",
+        }}
+      >
+        <Input ref={input_ref} />
+        <Button onClick={onSubmit}>Submit</Button>
+      </View>
+      {v.length > 0 ? <Text>Hello {v}</Text> : <></>}
+      <Text
+        style={{
+          fontSize: 50,
+        }}
+      >
+        Another text
+      </Text>
+    </View>
+  );
+}
+
+window.on("ready", () => {
+  GravityRenderer.render(<App />, root, window);
+});
+
+window.run();
+
+/*
+Controlled:
 
 function App() {
   const [v, setV] = useState("");
@@ -40,7 +92,7 @@ function App() {
       <Button onClick={onSubmit}>Submit</Button>
     </View>
   );
-}
+}*/
 
 /*
 Uncontrolled:
@@ -60,9 +112,3 @@ function App() {
   );
 }
 */
-
-window.on("ready", () => {
-  GravityRenderer.render(<App />, root, window);
-});
-
-window.run();

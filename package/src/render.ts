@@ -93,6 +93,10 @@ const Renderer = Reconciler({
   },
 
   commitUpdate: (instance: any, updatePayload: any) => {
+    const { oldProps, newProps } = updatePayload;
+
+    //const difference = diff(decircular(oldProps), decircular(newProps));
+
     const conversion =
       Conversions[instance.tagName as keyof typeof Conversions] ??
       Conversions[("gravity-" + instance.tagName) as keyof typeof Conversions];
