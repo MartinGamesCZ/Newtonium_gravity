@@ -3,7 +3,7 @@
   "type": "module",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "scripts": {
     "compile": "bun build --external react --external react-reconciler --external ws --external @newtonium/core --outdir dist --target=bun src/index.ts && tsc",
     "prepack": "bun compile"
