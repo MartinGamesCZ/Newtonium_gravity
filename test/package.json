@@ -13,7 +13,7 @@
     "typescript": "^5.0.0"
   },
   "dependencies": {
-    "@newtonium/core": "0.3.8",
+    "@newtonium/core": "0.3.10",
     "@newtonium/gravity": "../package/dist",
     "@types/node": "^22.7.5",
     "axios": "^1.7.7",

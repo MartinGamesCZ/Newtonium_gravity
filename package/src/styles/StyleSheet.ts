@@ -1,3 +1,4 @@
+import type { Event } from "../types/Event";
 import { enquote } from "../utils/conversions";
 import { StyleMappings } from "./mappings";
 import type { ElementStyle, StyleSheet } from "./types";
@@ -14,6 +15,11 @@ export function remapStyles(styles: ElementStyle) {
   for (const key of Object.keys(styles ?? {})) {
     const k = key as keyof ElementStyle;
     let v = styles[k];
+
+    if (k.startsWith("&")) {
+      out[k] = v;
+      continue;
+    }
 
     if (StyleMappings[k] && StyleMappings[k] === "!") {
       continue;

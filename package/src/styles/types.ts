@@ -1,5 +1,11 @@
+import type { Event } from "../types/Event";
+
 export interface StyleSheet {
-  [key: string]: ElementStyle;
+  [key: string]:
+    | ElementStyle
+    | {
+        [K in Event]: ElementStyle;
+      };
 }
 
 type FontWeight =

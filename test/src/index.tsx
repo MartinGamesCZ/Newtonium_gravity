@@ -10,6 +10,7 @@ import {
   createStyleSheet,
   createRoot,
   Input,
+  Event,
 } from "@newtonium/gravity";
 import axios from "axios";
 import { randomUUID } from "crypto";
@@ -24,48 +25,26 @@ const window = new Window(
 );
 const root = createRoot(window);
 
+const styles = createStyleSheet({
+  submit_button: {
+    background: "#1667ff",
+    transition: "0.5s",
+
+    [Event.hover]: {
+      background: "#1046aa",
+    },
+  },
+  root_view: {
+    flexDirection: "column",
+  },
+});
+
 function App() {
-  const input_ref = useRef<Element | null>(null);
-  const [v, setV] = useState("");
-
-  const onSubmit = useCallback(() => {
-    if (!input_ref.current) return;
-
-    setV(input_ref.current.getAttribute("innerHTML") ?? "");
-
-    input_ref.current.setAttribute("innerHTML", "");
-  }, [input_ref]);
-
   return (
-    <View
-      style={{
-        flexDirection: "column",
-      }}
-    >
-      <Text
-        style={{
-          color: v.length > 0 ? "green" : "red",
-          transition: "color 0.5s",
-        }}
-      >
-        Your name:
-      </Text>
-      <View
-        style={{
-          flexDirection: "row",
-        }}
-      >
-        <Input ref={input_ref} />
-        <Button onClick={onSubmit}>Submit</Button>
-      </View>
-      {v.length > 0 ? <Text>Hello {v}</Text> : <></>}
-      <Text
-        style={{
-          fontSize: 50,
-        }}
-      >
-        Another text
-      </Text>
+    <View style={styles.root_view}>
+      <Button onClick={() => {}} style={styles.submit_button}>
+        Submit
+      </Button>
     </View>
   );
 }
