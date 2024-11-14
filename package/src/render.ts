@@ -14,7 +14,10 @@ const Renderer = Reconciler({
   createInstance: (type: string, props: Record<string, any>, root: any) => {
     const conversion = Conversions[type as keyof typeof Conversions];
 
-    const { props: initial_props, post: attach } = conversion(props);
+    const { props: initial_props, post: attach } = conversion(
+      props,
+      root.theme
+    );
 
     const element = root.window.document.createElement(
       type.replace("gravity-", ""),
@@ -83,9 +86,10 @@ const Renderer = Reconciler({
     instance: any,
     type: string,
     oldProps: any,
-    newProps: any
+    newProps: any,
+    root: any
   ) => {
-    return { type, oldProps, newProps };
+    return { type, oldProps, newProps, root };
   },
 
   commitTextUpdate: (textInstance: any, oldText: string, newText: string) => {
@@ -93,7 +97,7 @@ const Renderer = Reconciler({
   },
 
   commitUpdate: (instance: any, updatePayload: any) => {
-    const { oldProps, newProps } = updatePayload;
+    const { oldProps, newProps, root } = updatePayload;
 
     //const difference = diff(decircular(oldProps), decircular(newProps));
 
@@ -102,7 +106,8 @@ const Renderer = Reconciler({
       Conversions[("gravity-" + instance.tagName) as keyof typeof Conversions];
 
     const { props: initial_props, post: attach } = conversion(
-      updatePayload.newProps
+      updatePayload.newProps,
+      root.theme
     );
 
     for (const prop of Object.keys(initial_props)) {

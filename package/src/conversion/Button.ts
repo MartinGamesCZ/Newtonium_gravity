@@ -7,7 +7,7 @@ const map = Object.entries({
   style: "style",
 });
 
-export const ButtonConversion = (props: any) => {
+export const ButtonConversion = (props: any, theme: any) => {
   const mod_props = { ...props };
 
   if (typeof mod_props.children != "string")
@@ -29,7 +29,10 @@ export const ButtonConversion = (props: any) => {
 
   return {
     post: (element: any) => {
-      const mapped_styles = remapStyles(props.style);
+      const mapped_styles = remapStyles({
+        ...theme.button,
+        ...props.style,
+      });
 
       for (const key of Object.keys(mapped_styles)) {
         if (key.startsWith("&")) {

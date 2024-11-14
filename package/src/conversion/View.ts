@@ -6,7 +6,7 @@ const map = Object.entries({
   style: "style",
 });
 
-export const ViewConversion = (props: any) => {
+export const ViewConversion = (props: any, theme: any) => {
   const mod_props = { ...props };
 
   const mapped = Object.fromEntries(
@@ -25,7 +25,10 @@ export const ViewConversion = (props: any) => {
 
   return {
     post: (element: any) => {
-      const mapped_styles = remapStyles(props.style);
+      const mapped_styles = remapStyles({
+        ...theme.view,
+        ...props.style,
+      });
 
       for (const key of Object.keys(mapped_styles)) {
         if (key.startsWith("&")) {

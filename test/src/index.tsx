@@ -23,7 +23,15 @@ const window = new Window(
   "My App",
   path.join(import.meta.dirname, "assets/icon.png")
 );
-const root = createRoot(window);
+const root = createRoot(window, {
+  button: {
+    border: "none",
+    padding: "4px 8px",
+    background: "#0056b3",
+    textShadow: "none",
+    color: "#ffffff",
+  },
+});
 
 const styles = createStyleSheet({
   submit_button: {

@@ -30,6 +30,11 @@ export default function domify(parent: DOMElement, child: DOMElement) {
   parent.children.push(child);
 }
 
-export function createRoot(window: Window) {
-  return { children: "", type: "gravity-root", window: window };
+export function createRoot(window: Window, theme?: any) {
+  return {
+    children: "",
+    type: "gravity-root",
+    window: window,
+    theme: theme ?? {},
+  };
 }
