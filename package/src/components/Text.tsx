@@ -12,7 +12,12 @@ interface TextProps {
 
 function _Text({ children, style }: TextProps, ref: Ref) {
   return (
-    <text style={style} ref={ref}>
+    <text
+      style={style}
+      width={style?.width ? style.width.toString() : undefined}
+      height={style?.height ? style.height.toString() : undefined}
+      ref={ref}
+    >
       {children}
     </text>
   );

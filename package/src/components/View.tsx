@@ -14,6 +14,9 @@ function _View({ children, style }: ViewProps, ref: Ref) {
   return (
     <view
       style={style}
+      width={style?.width ? style.width.toString() : undefined}
+      height={style?.height ? style.height.toString() : undefined}
+      spacing={style?.gap ? style.gap.toString() : undefined}
       dir={style?.flexDirection == "row" ? "horizontal" : "vertical"}
       ref={ref}
     >

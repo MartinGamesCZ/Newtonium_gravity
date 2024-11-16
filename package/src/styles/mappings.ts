@@ -98,7 +98,11 @@ export const StyleMappings = {
 
   "-gtk-key-bindings": "-gtk-key-bindings",
 
+  width: () => ({}),
+  height: () => ({}),
+
   flexDirection: "!",
+  gap: () => ({}),
   transition: "transition",
 };
 

@@ -11,11 +11,13 @@ import {
   createRoot,
   Input,
   Event,
+  Image,
 } from "@newtonium/gravity";
 import axios from "axios";
 import { randomUUID } from "crypto";
 import { Window } from "@newtonium/core";
 import Element from "@newtonium/core/dist/src/dom/element";
+import { TbWifi, TbX } from "react-icons/tb";
 
 const window_id = randomUUID();
 
@@ -37,6 +39,7 @@ const styles = createStyleSheet({
   submit_button: {
     background: "#1667ff",
     transition: "0.5s",
+    width: 100,
 
     [Event.hover]: {
       background: "#1046aa",
@@ -48,11 +51,29 @@ const styles = createStyleSheet({
 });
 
 function App() {
+  const [width, setWidth] = useState(0);
+
   return (
-    <View style={styles.root_view}>
-      <Button onClick={() => {}} style={styles.submit_button}>
-        Submit
+    <View
+      style={{
+        gap: 5,
+        padding: 5,
+      }}
+    >
+      <Input placeholder="Testík" />
+      <Button
+        onClick={() => {
+          setWidth((width) => width + 100);
+        }}
+        style={{
+          width: width,
+        }}
+      >
+        Click me
       </Button>
+      <Image>
+        <TbWifi color={"#ffffff"} size={64} />
+      </Image>
     </View>
   );
 }

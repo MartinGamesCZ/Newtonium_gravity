@@ -12,7 +12,13 @@ interface ButtonProps {
 
 function _Button({ children, onClick, style }: ButtonProps, ref: Ref) {
   return (
-    <button style={style} onClick={onClick} ref={ref}>
+    <button
+      style={style}
+      width={style?.width ? style.width.toString() : undefined}
+      height={style?.height ? style.height.toString() : undefined}
+      onClick={onClick}
+      ref={ref}
+    >
       {children}
     </button>
   );

@@ -221,6 +221,11 @@ export interface ElementStyle {
   // GTK: Key binding properties
   "-gtk-key-bindings"?: string;
 
+  // Custom implementation: Box properties
+  width?: number;
+  height?: number;
+
   // Custom implementation: Flex properties
   flexDirection?: "row" | "column";
+  gap?: number;
 }
